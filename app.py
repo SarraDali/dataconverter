@@ -6,8 +6,7 @@ from ultralytics import YOLO
 import pytesseract
 import pandas as pd
 
-# Configure the path to Tesseract OCR
-pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
+
 
 # Initialize YOLO model path
 model_path = 'Modele/TrainingModel.pt'
