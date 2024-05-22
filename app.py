@@ -10,7 +10,7 @@ import pandas as pd
 pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
 # Initialize YOLO model path
-model_path = 'C:/Users/DELL/Desktop/Modelstreamlit/Modele/TrainingModel.pt'
+model_path = 'Modele/TrainingModel.pt'
 
 # Load the YOLO model
 @st.cache_data
