@@ -7,6 +7,13 @@ import pytesseract
 import pandas as pd
 import os
 
+# Vérifier si Tesseract est installé
+tesseract_path = pytesseract.pytesseract.get_tesseract_version()
+if tesseract_path is None:
+    st.error("Tesseract n'est pas installé ou accessible.")
+else:
+    st.write(f"Tesseract est installé : {tesseract_path}")
+
 # Initialize YOLO model path
 model_path = 'Modele/TrainingModel.pt'
 
