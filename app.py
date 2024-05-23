@@ -6,46 +6,24 @@ from ultralytics import YOLO
 import pytesseract
 import pandas as pd
 import os
-import requests
 
-# URL du fichier modèle sur GitHub
-model_url = 'https://github.com/SarraDali/dataconverter/raw/main/TrainingModel.pt'
-
-# Chemin local où le fichier modèle sera sauvegardé
-model_local_path = 'TrainingModel.pt'
-
-# Téléchargement du modèle depuis GitHub
-@st.cache_data
-def download_model(url, local_path):
-    if not os.path.exists(local_path):
-        st.write(f"Downloading model from: {url}")
-        response = requests.get(url)
-        with open(local_path, 'wb') as file:
-            file.write(response.content)
-        st.write("Model downloaded successfully")
-    else:
-        st.write("Model already exists locally")
-    return local_path
-
-# Télécharger le modèle
-download_model(model_url, model_local_path)
-
-# Configure the path to Tesseract OCR
-pytesseract.pytesseract.tesseract_cmd = os.path.join(os.getcwd(), 'tesseract', 'tesseract.exe')
+# Initialize YOLO model path
+model_path = 'Modele/TrainingModel.pt'
 
 # Load the YOLO model
 @st.cache_data
 def load_model(model_path):
+    if not os.path.exists(model_path):
+        st.error(f"Model file not found: {model_path}")
+        return None
     try:
-        st.write(f"Loading model from: {model_path}")
         model = YOLO(model_path)
-        st.write("Model loaded successfully")
         return model
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None
 
-model = load_model(model_local_path)
+model = load_model(model_path)
 
 # Function to detect objects in the image using the YOLO model
 def detect_objects(image, model):
